@@ -1,5 +1,7 @@
 tables=(
-
+    # example
+    user
+    transaction
 )
 
 accessKey=""
@@ -31,6 +33,6 @@ mkdir output
 for table in ${tables[@]}
 do
     echo "migrating ${table}"
-    node index.js ${table}
+    node scan.js ${table}
 done
 

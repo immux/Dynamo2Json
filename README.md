@@ -1,40 +1,57 @@
-## This is a tool that helps you migrate your data from Amazon DynamoDB to MongoDB
+## Dynamo2Json
 
-### There are totally 4 steps to achieve this:
-1. Dump remote dynamoDB data to local machine.
-2. Load the result from step 1 to local dynamoDB.
-3. Export data to a json format from local dynamoDB.
-4. Load the json files from step3 to mongoDB.
+This tool exports data from Amazon DynamoDB and save them as individual JSON files.
 
-### Prerequisite
+### How to use
 
-1. We need to run a local dynamoDB instance. [Here][1] is the reference to download aws dynamoDB local version. Also remember to configure your AWS CLI, which you can find the instruction [here][2]. Once the above steps is done, you can run your local dynamoDB with this command line. 
+#### 1. Launch a local DynamoDB instance
 
-```
+Download a local version of DynamoDB from AWS[1] and configure[2] it.
+
+After installation, launch the DyanmoDB instance with:
+
+```bash
 java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb
 ```
 
 [1]: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
 [2]: https://docs.aws.amazon.com/cli/latest/reference/configure/index.html
 
-2. After setup local dynamoDB, we need to fill up our dynamoDB 
+#### 2. Initialize environment
+
+You are expected to have Python (2 or 3) and Node.js and you are working on a Unix-like system.
+
+Then, initialize the environment with:
+
+```
+./init.sh
+```
+
+#### 3. Fill in credentials
+
+In both `scan.js` and `dump.sh`, fill in these three credentials of your target DynamoDB servers:
+
 * accessKey 
 * secretKey
 * region
 
+#### 4. Set target tables
 
-in `index.js` file and `dump.sh`
+In `dump.sh`, set the `tables` variable with the list of tables that you like to export.
 
-3. Fill up the tables' name you want to migrate in ```dump.sh``` tables field.
+#### 5. Export the data
 
-4. run ```npm install```
-
-### Usage
-
-Just run
+You are advised to run this on a powerful machine (think 32GB memory and 8 cores) in the same availability zone as your target DynamoDB service.
 
 ```
-sh dump.sh
+./dump.sh
 ```
 
-Once the migration finished, you can check out the result at `output` folder.
+#### 6. Wait and profit
+
+Depending on the size of data, machine performance, and networking, it may take a few minutes to multiple hours to export a table from DynamoDB.
+
+
+#### License
+
+MIT

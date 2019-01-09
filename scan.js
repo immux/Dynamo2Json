@@ -1,15 +1,15 @@
 const AWS = require("aws-sdk")
 const fs = require('fs');
 
-const accessKeyId = ''
-const secretAccessKey = ''
+const accessKey = ''
+const secretKey = ''
 const region = ''
 const endpoint = 'http://localhost:8000'
 
 const config = {
 	region,
-	accessKeyId,
-	secretAccessKey,
+	accessKey,
+	secretKey,
 	endpoint
 }
 
